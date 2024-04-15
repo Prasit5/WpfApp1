@@ -1,0 +1,92 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="750" Width="900">
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Margin="19,26,0,0" TextWrapping="Wrap" Text="Please select an item from each category to add to the bill: " VerticalAlignment="Top" Width="771" RenderTransformOrigin="0.286,-2.58" FontSize="25" TextChanged="TextBox_TextChanged"/>
+        <TextBox HorizontalAlignment="Left" Margin="19,96,0,0" TextWrapping="Wrap" Text="Beverage: " VerticalAlignment="Top" Width="142" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Margin="19,144,0,0" TextWrapping="Wrap" Text="Appetizer:" VerticalAlignment="Top" Width="142" FontSize="20" TextChanged="TextBox_TextChanged_1"/>
+        <TextBox HorizontalAlignment="Left" Margin="19,197,0,0" TextWrapping="Wrap" Text="Main Course:" VerticalAlignment="Top" Width="142" FontSize="20" TextChanged="TextBox_TextChanged_1"/>
+        <TextBox HorizontalAlignment="Left" Margin="19,250,0,0" TextWrapping="Wrap" Text="Dessert: " VerticalAlignment="Top" Width="142" FontSize="20" TextChanged="TextBox_TextChanged_1"/>
+        <ComboBox x:Name="beverageComboBox" HorizontalAlignment="Left" Margin="199,103,0,0" VerticalAlignment="Top" Width="165" Height="22" FontSize="18" SelectionChanged="beverageComboBox_SelectionChanged">
+            <ComboBoxItem Content="Soda"/>
+            <ComboBoxItem Content="Tea"/>
+            <ComboBoxItem Content="Coffee"/>
+            <ComboBoxItem Content="Mineral Water"/>
+            <ComboBoxItem Content="Juice"/>
+            <ComboBoxItem Content="Milk"/>
+        </ComboBox>
+
+        <ComboBox x:Name="appetizerComboBox" HorizontalAlignment="Left" Margin="199,147,0,0" VerticalAlignment="Top" Width="165" Height="22" FontSize="18" SelectionChanged="appetizerComboBox_SelectionChanged">>
+            <ComboBoxItem Content="Buffalo Wings"/>
+            <ComboBoxItem Content="Buffalo Fingers"/>
+            <ComboBoxItem Content="Potato Skins"/>
+            <ComboBoxItem Content="Nachos"/>
+            <ComboBoxItem Content="Mushroom Caps"/>
+            <ComboBoxItem Content="Shrimp Cocktail"/>
+            <ComboBoxItem Content="Chips and Salsa"/>
+        </ComboBox>
+        <ComboBox x:Name="dessertComboBox" HorizontalAlignment="Left" Margin="199,257,0,0" VerticalAlignment="Top" Width="165" Height="22" FontSize="18" RenderTransformOrigin="0.54,4.982" SelectionChanged="mainCourseComboBox_SelectionChanged">
+            <ComboBoxItem Content="Seafood Alfredo"/>
+            <ComboBoxItem Content="Chicken Alfredo"/>
+            <ComboBoxItem Content="Chicken Picatta"/>
+            <ComboBoxItem Content="Turkey Club"/>
+            <ComboBoxItem Content="Lobster Pie"/>
+            <ComboBoxItem Content="Prime Rib"/>
+            <ComboBoxItem Content="Shrimp Scampi"/>
+            <ComboBoxItem Content="Turkey Dinner"/>
+            <ComboBoxItem Content="Stuffed Chicken"/>
+        </ComboBox>
+        <ComboBox x:Name="mainCourseComboBox" HorizontalAlignment="Left" Margin="199,200,0,0" VerticalAlignment="Top" Width="165" Height="22" FontSize="18" SelectionChanged="dessertComboBox_SelectionChanged">
+            <ComboBoxItem Content="Apple Pie"/>
+            <ComboBoxItem Content="Sundae"/>
+            <ComboBoxItem Content="Carrot Cake"/>
+            <ComboBoxItem Content="Mud Pie"/>
+        </ComboBox>
+
+        <TextBox HorizontalAlignment="Left" Margin="550,114,0,0" TextWrapping="Wrap" Text="Subtotal: " VerticalAlignment="Top" Width="92" FontSize="20" TextChanged="TextBox_TextChanged_2"/>
+        <TextBox HorizontalAlignment="Left" Margin="550,158,0,0" TextWrapping="Wrap" Text="Tax:" VerticalAlignment="Top" Width="92" FontSize="20" TextChanged="TextBox_TextChanged_2" RenderTransformOrigin="0.421,2.727"/>
+        <TextBox HorizontalAlignment="Left" Margin="550,211,0,0" TextWrapping="Wrap" Text="Total: " VerticalAlignment="Top" Width="92" FontSize="20" TextChanged="TextBox_TextChanged_2" RenderTransformOrigin="0.421,2.727"/>
+        <TextBox x:Name="subtotalTextBox" HorizontalAlignment="Left" Margin="698,114,0,0" TextWrapping="Wrap" Text="0.0" VerticalAlignment="Top" Width="92" FontSize="20" TextChanged="TextBox_TextChanged_2" RenderTransformOrigin="1.842,0.605"/>
+        <TextBox x:Name="taxTextBox" HorizontalAlignment="Left" Margin="698,158,0,0" TextWrapping="Wrap" Text="0.0." VerticalAlignment="Top" Width="92" FontSize="20" TextChanged="TextBox_TextChanged_2"/>
+        <TextBox x:Name="totalTextBox" HorizontalAlignment="Left" Margin="698,211,0,0" TextWrapping="Wrap" Text="0.0" VerticalAlignment="Top" Width="92" FontSize="20" TextChanged="TextBox_TextChanged_2"/>
+        <DataGrid x:Name="billDataGrid" Margin="27,326,450,119"
+          AutoGenerateColumns="False"
+          ItemsSource="{Binding}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="120" IsReadOnly="True" />
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="120" IsReadOnly="True" />
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="120" IsReadOnly="True" />
+                <DataGridTemplateColumn Header="Quantity" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+
+        <Button Content="  Remove Selected Item  " HorizontalAlignment="Left" Margin="522,546,0,0" VerticalAlignment="Top" FontSize="20" Click="Button_RemoveSelectedItem_Click"/>
+        <Button Content="Clear" HorizontalAlignment="Left" Margin="522,479,0,0" VerticalAlignment="Top" FontSize="20" Click="Button_Clear_Click"/>
+
+
+        <StatusBar VerticalAlignment="Bottom">
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Student Name: Prasit SIngh Dol" Margin="20" FontSize="18"/>
+                    <Button Click="Button_Click">
+                        <Image Source="C:\Users\dolsi\source\repos\WpfApp1\logo.jpg" Width="80" Height="80"/>
+                    </Button>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+
+    </Grid>
+</Window>
